@@ -41,6 +41,9 @@ android {
 }
 
 dependencies {
+    //lifecycle extensions to use repeatOnLifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
     //dagger with codegen
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
