@@ -14,6 +14,7 @@ import com.terabyte.isitweatherinfo.application.MyApplication
 import com.terabyte.isitweatherinfo.databinding.ActivityMainBinding
 import com.terabyte.isitweatherinfo.di.component.ActivityComponent
 import com.terabyte.isitweatherinfo.fragment.ChooseCityFragment
+import com.terabyte.isitweatherinfo.fragment.LoadingFragment
 import com.terabyte.isitweatherinfo.navigation.ScreenState
 import com.terabyte.isitweatherinfo.viewmodel.MainViewModel
 import com.terabyte.isitweatherinfo.viewmodel.ViewModelFactory
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                             replaceFragment(ChooseCityFragment())
                         }
                         is ScreenState.Loading -> {
-                            replaceFragment(ChooseCityFragment())
+                            replaceFragment(LoadingFragment.newInstance())
                         }
                         is ScreenState.WeatherDetails -> {
                             replaceFragment(ChooseCityFragment())

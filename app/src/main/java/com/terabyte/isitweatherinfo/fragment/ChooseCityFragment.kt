@@ -1,6 +1,8 @@
 package com.terabyte.isitweatherinfo.fragment
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,9 +46,33 @@ class ChooseCityFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.editCityName.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                //do nothing
+            }
+
+            override fun beforeTextChanged(
+                p0: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+                //do nothing
+            }
+
+            override fun onTextChanged(
+                text: CharSequence?,
+                p1: Int,
+                p2: Int,
+                p3: Int
+            ) {
+                binding.buttonGetWeather.isEnabled = text?.isNotBlank() ?: false
+            }
+        })
+
         binding.buttonGetWeather.setOnClickListener {
             val cityName = binding.editCityName.text.toString()
-//            viewModel.
+            viewModel.loadWeatherDetails(cityName)
         }
     }
 
