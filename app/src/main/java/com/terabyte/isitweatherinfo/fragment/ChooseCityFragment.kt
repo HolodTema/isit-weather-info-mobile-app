@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.terabyte.isitweatherinfo.databinding.FragmentChooseCityBinding
 
 class ChooseCityFragment : Fragment() {
+
+    private lateinit var binding: FragmentChooseCityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,12 +19,15 @@ class ChooseCityFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    ): View {
+        binding = FragmentChooseCityBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        binding.buttonGetWeather.setOnClickListener {
+
+        }
     }
 
 

@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.stateFlowScreenState.collect { state ->
                     when(state) {
                         is ScreenState.ChooseCity -> {
-                            replaceFragment(ChooseCityFragment())
+                            replaceFragment(ChooseCityFragment.newInstance())
                         }
                         is ScreenState.Error -> {
                             replaceFragment(ChooseCityFragment())
