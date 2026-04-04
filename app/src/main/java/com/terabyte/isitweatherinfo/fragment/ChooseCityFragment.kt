@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.terabyte.isitweatherinfo.activity.MainActivity
 import com.terabyte.isitweatherinfo.databinding.FragmentChooseCityBinding
 import com.terabyte.isitweatherinfo.di.component.FragmentComponent
+import com.terabyte.isitweatherinfo.navigation.ScreenState
 import com.terabyte.isitweatherinfo.viewmodel.MainViewModel
 import com.terabyte.isitweatherinfo.viewmodel.ViewModelFactory
 import javax.inject.Inject
@@ -46,6 +47,11 @@ class ChooseCityFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val screenState = viewModel.stateFlowScreenState.value
+        if (screenState is ScreenState.ChooseCity) {
+            binding.editCityName.setText(screenState.cityName)
+        }
+
         binding.editCityName.addTextChangedListener(object: TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 //do nothing
@@ -71,9 +77,15 @@ class ChooseCityFragment : Fragment() {
         })
 
         binding.buttonGetWeather.setOnClickListener {
-            val cityName = binding.editCityName.text.toString()
+            val cityName = binding.editCityName.text.toString().trim()
             viewModel.loadWeatherDetails(cityName)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val cityName = binding.editCityName.text.toString().trim()
+        viewModel.saveChooseCityScreenState(cityName)
     }
 
 

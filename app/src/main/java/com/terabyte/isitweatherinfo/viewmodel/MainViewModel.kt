@@ -1,5 +1,7 @@
 package com.terabyte.isitweatherinfo.viewmodel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.terabyte.domain.usecase.GetCityCoordinatesByNameUseCase
@@ -26,9 +28,21 @@ class MainViewModel @Inject constructor(
                     _stateFlowScreenState.value = ScreenState.Error
                 }
                 else {
+                    Log.d("mydebug", "lat: ${cityModel.latitude} lon: ${cityModel.longitude}")
                     //load weather details via usecase
                 }
             }
+        }
+    }
+
+    fun navigateToChooseCityScreen() {
+        _stateFlowScreenState.value = ScreenState.ChooseCity("")
+    }
+
+    fun saveChooseCityScreenState(cityName: String) {
+        val screenState = _stateFlowScreenState.value
+        if (screenState is ScreenState.ChooseCity) {
+            screenState.cityName = cityName
         }
     }
 
