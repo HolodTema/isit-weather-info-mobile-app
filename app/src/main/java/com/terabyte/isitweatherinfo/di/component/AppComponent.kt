@@ -4,12 +4,14 @@ import android.app.Application
 import com.terabyte.isitweatherinfo.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
 @Component(
     modules = [
         AppModule::class
     ]
 )
+@Singleton
 interface AppComponent {
 
     @Component.Factory
