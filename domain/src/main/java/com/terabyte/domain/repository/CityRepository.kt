@@ -4,6 +4,6 @@ import com.terabyte.domain.model.CityModel
 
 interface CityRepository {
 
-    suspend fun getCityCoordinates(name: String): CityModel
+    fun getCityCoordinates(name: String, onResultListener: (CityModel?) -> Unit)
 
 }
