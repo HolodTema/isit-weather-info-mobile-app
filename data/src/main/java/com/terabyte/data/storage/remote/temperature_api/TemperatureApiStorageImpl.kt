@@ -1,20 +1,22 @@
 package com.terabyte.data.storage.remote.temperature_api
 
-import com.terabyte.data.di.qualifier.TemperatureApiRetrofit
 import com.terabyte.data.storage.remote.temperature_api.model.WeatherTemperatureModel
-import retrofit2.Retrofit
+import com.terabyte.data.storage.remote.temperature_api.service.TemperatureService
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class TemperatureApiStorageImpl @Inject constructor(
-    @TemperatureApiRetrofit private val retrofit: Retrofit
+    private val temperatureService: TemperatureService
 ) : TemperatureApiStorage {
 
     override suspend fun getTemperature(
         latitude: Double,
         longitude: Double
-    ): WeatherTemperatureModel {
-
+    ): Result<WeatherTemperatureModel> {
+        val response =  temperatureService.getWeatherTemperature(latitude, longitude)
+        val weatherTemperatureModel = response.body()
+            ?: return Result.failure(Exception("Temperature API request error. Status code=${response.code()}"))
+        return Result.success(weatherTemperatureModel)
     }
 }

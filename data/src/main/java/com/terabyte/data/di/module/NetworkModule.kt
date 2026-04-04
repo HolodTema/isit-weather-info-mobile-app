@@ -5,17 +5,26 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.terabyte.data.BuildConfig
 import com.terabyte.data.di.qualifier.TemperatureApiRetrofit
 import com.terabyte.data.di.qualifier.TimeApiRetrofit
+import com.terabyte.data.storage.remote.temperature_api.TemperatureApiStorage
+import com.terabyte.data.storage.remote.temperature_api.TemperatureApiStorageImpl
+import com.terabyte.data.storage.remote.temperature_api.service.TemperatureService
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 interface NetworkModule {
+
+    @Singleton
+    @Binds
+    fun bindTemperatureApiStorage(storage: TemperatureApiStorageImpl): TemperatureApiStorage
 
     companion object {
 
@@ -77,6 +86,10 @@ interface NetworkModule {
         }
 
         @JvmStatic
-        
+        @Provides
+        @Singleton
+        fun provideTemperatureService(@TemperatureApiRetrofit retrofit: Retrofit): TemperatureService {
+            return retrofit.create<TemperatureService>()
+        }
     }
 }
