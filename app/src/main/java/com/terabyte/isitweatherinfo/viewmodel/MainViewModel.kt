@@ -4,6 +4,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.terabyte.domain.model.WeatherModel
 import com.terabyte.domain.usecase.GetCityCoordinatesByNameUseCase
 import com.terabyte.isitweatherinfo.navigation.ScreenState
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +29,14 @@ class MainViewModel @Inject constructor(
                     _stateFlowScreenState.value = ScreenState.Error
                 }
                 else {
-                    Log.d("mydebug", "lat: ${cityModel.latitude} lon: ${cityModel.longitude}")
-                    //load weather details via usecase
+                    val weatherModel = WeatherModel(
+                        sunriseTime = "sunrise",
+                        sunsetTime = "sunset",
+                        dayLen = "daylen",
+                        dayTemp = "daytemp",
+                        nightTemp = "nightTemp"
+                    )
+                    _stateFlowScreenState.value = ScreenState.WeatherDetails(cityModel, weatherModel)
                 }
             }
         }
