@@ -11,6 +11,7 @@ constraintlayout = "2.2.1"
 jetbrainsKotlinJvm = "2.2.10"
 ksp = "2.3.6"
 dagger = "2.59.2"
+lifecycle = "2.10.0"
 
 
 [libraries]
@@ -25,6 +26,9 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 # dagger with codegen
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
+# lifecycle to use function repeatOnLifecycle()
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
+
 
 
 [plugins]

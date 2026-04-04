@@ -34,9 +34,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
+    //lifecycle extensions to use repeatOnLifecycle
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
     //dagger with codegen
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
