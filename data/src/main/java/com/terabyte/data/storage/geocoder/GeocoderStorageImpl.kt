@@ -10,11 +10,10 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class GeocoderStorageImpl @Inject constructor(@ApplicationContext private val context: Context) :
+class GeocoderStorageImpl @Inject constructor(private val geocoder: Geocoder) :
     GeocoderStorage {
 
     override fun getCoordinatesByCityName(cityName: String, onResultListener: (Pair<Double, Double>?) -> Unit) {
-        val geocoder = Geocoder(context)
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 geocoder.getFromLocationName(cityName, 1, object: Geocoder.GeocodeListener {

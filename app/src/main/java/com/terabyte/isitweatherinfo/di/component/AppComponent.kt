@@ -1,6 +1,8 @@
 package com.terabyte.isitweatherinfo.di.component
 
 import android.app.Application
+import com.terabyte.data.di.module.GeocoderModule
+import com.terabyte.data.di.module.RepositoryModule
 import com.terabyte.isitweatherinfo.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
@@ -8,7 +10,9 @@ import javax.inject.Singleton
 
 @Component(
     modules = [
-        AppModule::class
+        AppModule::class,
+        RepositoryModule::class,
+        GeocoderModule::class,
     ]
 )
 @Singleton
