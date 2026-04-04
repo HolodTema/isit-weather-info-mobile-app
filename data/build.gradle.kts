@@ -19,7 +19,30 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_TIME_API_URL",
+                "\"https://api.sunrise-sunset.org/json\""
+            )
+            buildConfigField(
+                "String",
+                "BASE_TEMPERATURE_API_URL",
+                "\"https://archive-api.open-meteo.com\""
+            )
+        }
         release {
+            buildConfigField(
+                "String",
+                "BASE_TIME_API_URL",
+                "\"https://api.sunrise-sunset.org/json\""
+            )
+            buildConfigField(
+                "String",
+                "BASE_TEMPERATURE_API_URL",
+                "\"https://archive-api.open-meteo.com\""
+            )
+
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -31,9 +54,24 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    //Retrofit + moshi json converter
+    //I made it api() because of Dagger from :app module has to access Retrofit, Moshi
+    api(libs.retrofit)
+    api(libs.retrofit.converter.moshi)
+
+    //Http interceptor for logging requests
+    api(libs.okhttp.logging.interceptor)
+
+    //Moshi JSON lib to work with Retrofit
+    api(libs.moshi)
+    api(libs.moshi.kotlin)
+
     //dagger with codegen
     implementation(libs.dagger)
     ksp(libs.dagger.compiler)
