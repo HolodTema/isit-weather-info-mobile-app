@@ -2,20 +2,20 @@ package com.terabyte.isitweatherinfo.di.component
 
 import com.terabyte.isitweatherinfo.activity.MainActivity
 import com.terabyte.isitweatherinfo.di.scope.ActivityScope
+import com.terabyte.isitweatherinfo.di.scope.FragmentScope
+import com.terabyte.isitweatherinfo.fragment.ChooseCityFragment
 import dagger.Subcomponent
 
 @Subcomponent(
     modules = []
 )
-@ActivityScope
-interface ActivityComponent {
+@FragmentScope
+interface FragmentComponent {
 
-    fun fragmentComponentFactory(): FragmentComponent.Factory
-
-    fun inject(activity: MainActivity)
+    fun inject(fragment: ChooseCityFragment)
 
     @Subcomponent.Factory
     interface Factory {
-        fun create(): ActivityComponent
+        fun create(): FragmentComponent
     }
 }
