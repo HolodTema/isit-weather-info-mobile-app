@@ -54,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:backgroundTint="@color/orange"
                 android:text="@string/change_date" />
 
         </LinearLayout>
@@ -66,6 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/selector_color_button_enabled"
         android:text="@string/get_weather_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

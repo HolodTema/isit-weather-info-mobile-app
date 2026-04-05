@@ -13,4 +13,5 @@
     <string name="day_temperature">Day temperature: %f</string>
     <string name="change_city">Change city</string>
     <string name="change_date">Change date</string>
+    <string name="something_went_wrong">Something went wrong!</string>
 </resources>
