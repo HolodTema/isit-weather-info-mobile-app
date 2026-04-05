@@ -76,6 +76,7 @@ class ChooseCityFragment : Fragment() {
             }
         })
 
+        binding.buttonGetWeather.isEnabled = binding.editCityName.text.isNotEmpty()
         binding.buttonGetWeather.setOnClickListener {
             val cityName = binding.editCityName.text.toString().trim()
             viewModel.loadWeatherDetails(cityName)
