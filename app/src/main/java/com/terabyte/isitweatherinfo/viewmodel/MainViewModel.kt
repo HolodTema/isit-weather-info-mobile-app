@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
     private val getWeatherDetailsUseCase: GetWeatherDetailsUseCase
 ) : ViewModel() {
 
-    private val _stateFlowScreenState = MutableStateFlow<ScreenState>(ScreenState.ChooseCity(""))
+    private val _stateFlowScreenState = MutableStateFlow<ScreenState>(ScreenState.ChooseCity.getDefault())
     val stateFlowScreenState = _stateFlowScreenState.asStateFlow()
 
     fun loadWeatherDetails(cityName: String) {
@@ -48,7 +48,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun navigateToChooseCityScreen() {
-        _stateFlowScreenState.value = ScreenState.ChooseCity("")
+        _stateFlowScreenState.value = ScreenState.ChooseCity.getDefault()
     }
 
     fun saveChooseCityScreenState(cityName: String) {

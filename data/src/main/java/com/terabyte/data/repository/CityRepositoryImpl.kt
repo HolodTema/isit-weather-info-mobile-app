@@ -16,7 +16,7 @@ class CityRepositoryImpl @Inject constructor(private val geocoderStorage: Geocod
                 onResultListener(null)
             } else {
                 onResultListener(
-                    CityModel(name, pairCoordinates.first, pairCoordinates.second)
+                    CityModel(name, "2026-01-01", pairCoordinates.first, pairCoordinates.second)
                 )
             }
         }

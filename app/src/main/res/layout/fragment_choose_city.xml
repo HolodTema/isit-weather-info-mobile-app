@@ -51,7 +51,7 @@
                 android:layout_marginStart="10dp"
                 android:id="@+id/button_change_date"
                 android:text="@string/change_date"/>
-            
+
         </LinearLayout>
 
     </LinearLayout>
