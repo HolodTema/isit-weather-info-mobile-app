@@ -14,11 +14,17 @@ class TemperatureApiStorageImpl @Inject constructor(
 
     override suspend fun getTemperature(
         latitude: Double,
-        longitude: Double
+        longitude: Double,
+        date: String
     ): Result<WeatherTemperatureJson> {
         try {
             val weatherTemperatureJson =
-                temperatureService.getWeatherTemperature(latitude, longitude).daily
+                temperatureService.getWeatherTemperature(
+                    latitude = latitude,
+                    longitude = longitude,
+                    startDate = date,
+                    endDate = date
+                ).daily
 
             if (weatherTemperatureJson.dayTemp.isEmpty() || weatherTemperatureJson.nightTemp.isEmpty()) {
                 return Result.failure(Exception("Error: request is successful, but json fields are empty."))
