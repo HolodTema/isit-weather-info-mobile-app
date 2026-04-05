@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.terabyte.core.util.DateHelper
 import com.terabyte.isitweatherinfo.R
 import com.terabyte.isitweatherinfo.activity.MainActivity
 import com.terabyte.isitweatherinfo.databinding.FragmentWeatherDetailsBinding
@@ -63,6 +64,7 @@ class WeatherDetailsFragment : Fragment() {
                             screenState.cityModel.latitude,
                             screenState.cityModel.longitude
                         )
+                        binding.textDate.text = DateHelper.dateToString(screenState.cityModel.date)
 
                         binding.textSunriseTime.text = getString(
                             R.string.sunrise_time,

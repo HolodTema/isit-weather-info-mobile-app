@@ -1,5 +1,6 @@
 package com.terabyte.data.repository
 
+import com.terabyte.core.util.DateHelper
 import com.terabyte.data.storage.remote.temperature_api.TemperatureApiStorage
 import com.terabyte.data.storage.remote.temperature_api.model.WeatherTemperatureJson
 import com.terabyte.data.storage.remote.time_api.TimeApiStorage
@@ -18,14 +19,18 @@ class WeatherRepositoryImpl @Inject constructor(
 ) : WeatherRepository {
 
     override suspend fun getWeatherDetails(cityModel: CityModel): Result<WeatherModel> {
+        val strDate = DateHelper.dateToString(cityModel.date)
+
         val resultTemperature =
-            temperatureApiStorage.getTemperature(cityModel.latitude, cityModel.longitude)
+            temperatureApiStorage.getTemperature(cityModel.latitude, cityModel.longitude, strDate)
 
         if (resultTemperature.isFailure) {
             return Result.failure(resultTemperature.exceptionOrNull() ?: Exception())
         }
 
-        val resultTime = timeApiStorage.getWeatherTime(cityModel.latitude, cityModel.longitude)
+        val resultTime =
+            timeApiStorage.getWeatherTime(cityModel.latitude, cityModel.longitude, strDate)
+
         if (resultTime.isFailure) {
             return Result.failure(resultTime.exceptionOrNull() ?: Exception())
         }

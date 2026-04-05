@@ -4,6 +4,6 @@ import com.terabyte.data.storage.remote.temperature_api.model.WeatherTemperature
 
 interface TemperatureApiStorage {
 
-    suspend fun getTemperature(latitude: Double, longitude: Double): Result<WeatherTemperatureJson>
+    suspend fun getTemperature(latitude: Double, longitude: Double, date: String): Result<WeatherTemperatureJson>
 
 }

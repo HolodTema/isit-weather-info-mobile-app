@@ -1,20 +1,25 @@
 package com.terabyte.isitweatherinfo.fragment
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.terabyte.core.util.DateHelper
 import com.terabyte.isitweatherinfo.activity.MainActivity
 import com.terabyte.isitweatherinfo.databinding.FragmentChooseCityBinding
 import com.terabyte.isitweatherinfo.di.component.FragmentComponent
 import com.terabyte.isitweatherinfo.navigation.ScreenState
 import com.terabyte.isitweatherinfo.viewmodel.MainViewModel
 import com.terabyte.isitweatherinfo.viewmodel.ViewModelFactory
+import java.util.Calendar
 import javax.inject.Inject
+import kotlin.math.min
 
 class ChooseCityFragment : Fragment() {
 
@@ -50,9 +55,10 @@ class ChooseCityFragment : Fragment() {
         val screenState = viewModel.stateFlowScreenState.value
         if (screenState is ScreenState.ChooseCity) {
             binding.editCityName.setText(screenState.cityName)
+            binding.textDate.text = DateHelper.dateToString(screenState.date)
         }
 
-        binding.editCityName.addTextChangedListener(object: TextWatcher {
+        binding.editCityName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 //do nothing
             }
@@ -76,6 +82,14 @@ class ChooseCityFragment : Fragment() {
             }
         })
 
+        binding.buttonChangeDate.setOnClickListener {
+            val screenState = viewModel.stateFlowScreenState.value
+            if (screenState is ScreenState.ChooseCity) {
+                showDatePickerDialog(screenState.date)
+            }
+        }
+
+        binding.buttonGetWeather.isEnabled = binding.editCityName.text.isNotEmpty()
         binding.buttonGetWeather.setOnClickListener {
             val cityName = binding.editCityName.text.toString().trim()
             viewModel.loadWeatherDetails(cityName)
@@ -88,6 +102,27 @@ class ChooseCityFragment : Fragment() {
         viewModel.saveChooseCityScreenState(cityName)
     }
 
+    private fun showDatePickerDialog(currentDate: Calendar) {
+        val onDateSetListener =
+            { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
+                val selectedDate = Calendar.getInstance().apply {
+                    set(selectedYear, selectedMonth, selectedDay)
+                }
+                viewModel.updateChooseCityDate(selectedDate)
+                binding.textDate.text = DateHelper.dateToString(selectedDate)
+            }
+
+        val dialog = DatePickerDialog(
+            requireActivity(),
+            onDateSetListener,
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DAY_OF_MONTH)
+        )
+        dialog.datePicker.minDate = DateHelper.getMinDateMills()
+        dialog.datePicker.maxDate = DateHelper.getMaxDateMills()
+        dialog.show()
+    }
 
     companion object {
         fun newInstance(): ChooseCityFragment {

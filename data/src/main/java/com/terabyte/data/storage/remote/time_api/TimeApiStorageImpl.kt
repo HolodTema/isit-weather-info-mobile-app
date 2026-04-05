@@ -13,9 +13,13 @@ class TimeApiStorageImpl @Inject constructor(
     private val timeService: TimeService
 ) : TimeApiStorage {
 
-    override suspend fun getWeatherTime(latitude: Double, longitude: Double): Result<WeatherTimeJson> {
+    override suspend fun getWeatherTime(
+        latitude: Double,
+        longitude: Double,
+        date: String
+    ): Result<WeatherTimeJson> {
         try {
-            val weatherTimeJson = timeService.getWeatherTime(latitude, longitude).results
+            val weatherTimeJson = timeService.getWeatherTime(latitude, longitude, date).results
             return Result.success(weatherTimeJson)
         } catch (e: HttpException) {
             e.printStackTrace()
