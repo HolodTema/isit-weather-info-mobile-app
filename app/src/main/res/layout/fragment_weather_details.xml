@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#A6A5A5">
+    android:background="@android:color/transparent">
 
     <LinearLayout
         android:id="@+id/linear_city_details"
@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:textColor="@color/orange"
             android:textSize="22sp"
             android:textStyle="bold"
             tools:text="London" />
@@ -102,6 +103,7 @@
         android:id="@+id/button_change_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange"
         android:text="@string/change_city"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
