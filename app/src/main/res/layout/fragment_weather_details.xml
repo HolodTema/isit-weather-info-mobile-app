@@ -35,6 +35,14 @@
             android:gravity="center"
             android:text="@string/city_lat_lon"
             android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -56,32 +64,36 @@
             android:layout_height="wrap_content"
             android:text="@string/sunrise_time"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/text_sunset_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sunset_time"
             android:layout_marginTop="10dp"
+            android:text="@string/sunset_time"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/text_day_len"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/day_len"
             android:layout_marginTop="10dp"
+            android:text="@string/day_len"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/text_day_temperature"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/day_temperature"
             android:layout_marginTop="10dp"
+            android:text="@string/day_temperature"
             android:textSize="14sp" />
+
         <TextView
             android:id="@+id/text_night_temperature"
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="@string/night_temperature"
             android:textSize="14sp" />
     </LinearLayout>
