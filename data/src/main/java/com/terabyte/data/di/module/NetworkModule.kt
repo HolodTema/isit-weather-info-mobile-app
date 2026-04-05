@@ -8,6 +8,9 @@ import com.terabyte.data.di.qualifier.TimeApiRetrofit
 import com.terabyte.data.storage.remote.temperature_api.TemperatureApiStorage
 import com.terabyte.data.storage.remote.temperature_api.TemperatureApiStorageImpl
 import com.terabyte.data.storage.remote.temperature_api.service.TemperatureService
+import com.terabyte.data.storage.remote.time_api.TimeApiStorage
+import com.terabyte.data.storage.remote.time_api.TimeApiStorageImpl
+import com.terabyte.data.storage.remote.time_api.service.TimeService
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -25,6 +28,10 @@ interface NetworkModule {
     @Singleton
     @Binds
     fun bindTemperatureApiStorage(storage: TemperatureApiStorageImpl): TemperatureApiStorage
+
+    @Singleton
+    @Binds
+    fun bindTimeApiStorage(storage: TimeApiStorageImpl): TimeApiStorage
 
     companion object {
 
@@ -90,6 +97,13 @@ interface NetworkModule {
         @Singleton
         fun provideTemperatureService(@TemperatureApiRetrofit retrofit: Retrofit): TemperatureService {
             return retrofit.create<TemperatureService>()
+        }
+
+        @JvmStatic
+        @Provides
+        @Singleton
+        fun provideTimeService(@TimeApiRetrofit retrofit: Retrofit): TimeService {
+            return retrofit.create<TimeService>()
         }
     }
 }

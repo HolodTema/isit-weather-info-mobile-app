@@ -23,7 +23,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_TIME_API_URL",
-                "\"https://api.sunrise-sunset.org/json\""
+                "\"https://api.sunrise-sunset.org\""
             )
             buildConfigField(
                 "String",
@@ -35,7 +35,7 @@ android {
             buildConfigField(
                 "String",
                 "BASE_TIME_API_URL",
-                "\"https://api.sunrise-sunset.org/json\""
+                "\"https://api.sunrise-sunset.org\""
             )
             buildConfigField(
                 "String",

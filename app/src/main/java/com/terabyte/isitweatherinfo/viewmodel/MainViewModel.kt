@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.terabyte.domain.model.WeatherModel
 import com.terabyte.domain.usecase.GetCityCoordinatesByNameUseCase
+import com.terabyte.domain.usecase.GetWeatherDetailsUseCase
 import com.terabyte.isitweatherinfo.navigation.ScreenState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,8 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
-    private val getCityCoordinatesByNameUseCase: GetCityCoordinatesByNameUseCase
+    private val getCityCoordinatesByNameUseCase: GetCityCoordinatesByNameUseCase,
+    private val getWeatherDetailsUseCase: GetWeatherDetailsUseCase
 ) : ViewModel() {
 
     private val _stateFlowScreenState = MutableStateFlow<ScreenState>(ScreenState.ChooseCity(""))
@@ -29,14 +31,17 @@ class MainViewModel @Inject constructor(
                     _stateFlowScreenState.value = ScreenState.Error
                 }
                 else {
-                    val weatherModel = WeatherModel(
-                        sunriseTime = "sunrise",
-                        sunsetTime = "sunset",
-                        dayLen = "daylen",
-                        dayTemp = "daytemp",
-                        nightTemp = "nightTemp"
-                    )
-                    _stateFlowScreenState.value = ScreenState.WeatherDetails(cityModel, weatherModel)
+                    withContext(Dispatchers.IO) {
+                        val resultWeatherModel = getWeatherDetailsUseCase(cityModel)
+
+                        withContext(Dispatchers.Main) {
+                            resultWeatherModel.onFailure {
+                                _stateFlowScreenState.value = ScreenState.Error
+                            }.onSuccess { weatherModel ->
+                                _stateFlowScreenState.value = ScreenState.WeatherDetails(cityModel, weatherModel)
+                            }
+                        }
+                    }
                 }
             }
         }
