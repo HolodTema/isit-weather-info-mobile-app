@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Calendar
 import javax.inject.Inject
 
 class MainViewModel @Inject constructor(
@@ -24,8 +25,13 @@ class MainViewModel @Inject constructor(
     val stateFlowScreenState = _stateFlowScreenState.asStateFlow()
 
     fun loadWeatherDetails(cityName: String) {
+        val screenState = stateFlowScreenState.value
+        if (screenState !is ScreenState.ChooseCity) {
+            return
+        }
+
         _stateFlowScreenState.value = ScreenState.Loading
-        getCityCoordinatesByNameUseCase(cityName) { cityModel ->
+        getCityCoordinatesByNameUseCase(cityName, screenState.date) { cityModel ->
             viewModelScope.launch(Dispatchers.Main) {
                 if (cityModel == null) {
                     _stateFlowScreenState.value = ScreenState.Error
@@ -58,4 +64,10 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun updateChooseCityDate(newDate: Calendar) {
+        val screenState = _stateFlowScreenState.value
+        if (screenState is ScreenState.ChooseCity) {
+            screenState.date = newDate
+        }
+    }
 }

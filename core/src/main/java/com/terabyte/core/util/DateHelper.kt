@@ -19,8 +19,12 @@ object DateHelper {
     }
 
     fun dateToString(date: Calendar): String {
-        return dateFormat.format(date)
+        return dateFormat.format(date.time)
     }
 
-
+    fun getDefaultDate(): Calendar {
+        return Calendar.getInstance().apply {
+            set(2026, Calendar.JANUARY, 1)
+        }
+    }
 }

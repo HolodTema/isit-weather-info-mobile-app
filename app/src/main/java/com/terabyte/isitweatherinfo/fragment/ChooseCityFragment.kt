@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.terabyte.core.util.DateHelper
 import com.terabyte.isitweatherinfo.activity.MainActivity
 import com.terabyte.isitweatherinfo.databinding.FragmentChooseCityBinding
 import com.terabyte.isitweatherinfo.di.component.FragmentComponent
@@ -54,6 +55,7 @@ class ChooseCityFragment : Fragment() {
         val screenState = viewModel.stateFlowScreenState.value
         if (screenState is ScreenState.ChooseCity) {
             binding.editCityName.setText(screenState.cityName)
+            binding.textDate.text = DateHelper.dateToString(screenState.date)
         }
 
         binding.editCityName.addTextChangedListener(object : TextWatcher {
@@ -81,7 +83,10 @@ class ChooseCityFragment : Fragment() {
         })
 
         binding.buttonChangeDate.setOnClickListener {
-            showDatePickerDialog()
+            val screenState = viewModel.stateFlowScreenState.value
+            if (screenState is ScreenState.ChooseCity) {
+                showDatePickerDialog(screenState.date)
+            }
         }
 
         binding.buttonGetWeather.isEnabled = binding.editCityName.text.isNotEmpty()
@@ -97,32 +102,25 @@ class ChooseCityFragment : Fragment() {
         viewModel.saveChooseCityScreenState(cityName)
     }
 
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
+    private fun showDatePickerDialog(currentDate: Calendar) {
         val onDateSetListener =
             { _: DatePicker, selectedYear: Int, selectedMonth: Int, selectedDay: Int ->
                 val selectedDate = Calendar.getInstance().apply {
                     set(selectedYear, selectedMonth, selectedDay)
                 }
+                viewModel.updateChooseCityDate(selectedDate)
+                binding.textDate.text = DateHelper.dateToString(selectedDate)
             }
 
         val dialog = DatePickerDialog(
             requireActivity(),
             onDateSetListener,
-            year,
-            month,
-            day
+            currentDate.get(Calendar.YEAR),
+            currentDate.get(Calendar.MONTH),
+            currentDate.get(Calendar.DAY_OF_MONTH)
         )
-
-
-        val maxDate = Calendar.getInstance()
-        dialog.datePicker.minDate = minDate.timeInMillis
-        dialog.datePicker.maxDate = maxDate.timeInMillis
-
+        dialog.datePicker.minDate = DateHelper.getMinDateMills()
+        dialog.datePicker.maxDate = DateHelper.getMaxDateMills()
         dialog.show()
     }
 
