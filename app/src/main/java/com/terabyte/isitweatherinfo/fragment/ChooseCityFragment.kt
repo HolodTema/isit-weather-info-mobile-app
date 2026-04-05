@@ -118,9 +118,7 @@ class ChooseCityFragment : Fragment() {
             day
         )
 
-        val minDate = Calendar.getInstance().apply {
-            set(2010, Calendar.JANUARY, 1)
-        }
+
         val maxDate = Calendar.getInstance()
         dialog.datePicker.minDate = minDate.timeInMillis
         dialog.datePicker.maxDate = maxDate.timeInMillis

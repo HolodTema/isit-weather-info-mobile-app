@@ -2,12 +2,16 @@ package com.terabyte.isitweatherinfo.navigation
 
 import com.terabyte.domain.model.CityModel
 import com.terabyte.domain.model.WeatherModel
+import java.util.Calendar
 
 sealed class ScreenState {
-    data class ChooseCity(var cityName: String, var date: String) : ScreenState() {
+    data class ChooseCity(var cityName: String, var date: Calendar) : ScreenState() {
         companion object {
             fun getDefault(): ChooseCity {
-                return ChooseCity("", "2026-01-01")
+                val date = Calendar.getInstance().apply {
+                    set(2026, Calendar.JANUARY, 1)
+                }
+                return ChooseCity("", date)
             }
         }
     }

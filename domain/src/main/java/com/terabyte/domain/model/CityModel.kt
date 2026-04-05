@@ -1,9 +1,10 @@
 package com.terabyte.domain.model
 
+import java.util.Calendar
+
 data class CityModel(
     val name: String,
-    //date in format yyyy-mm-dd
-    val date: String,
+    val date: Calendar,
     val latitude: Double,
     val longitude: Double
 )

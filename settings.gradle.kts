@@ -26,3 +26,4 @@ rootProject.name = "IsitWeatherInfo"
 include(":app")
 include(":domain")
 include(":data")
+include(":core")
