@@ -12,6 +12,9 @@ jetbrainsKotlinJvm = "2.2.10"
 ksp = "2.3.6"
 dagger = "2.59.2"
 lifecycle = "2.10.0"
+    retrofit = "3.0.0"
+    moshi = "1.15.2"
+    okhttp = "5.3.2"
 
 
 [libraries]
@@ -28,7 +31,13 @@ dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" 
 dagger-compiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 # lifecycle to use function repeatOnLifecycle()
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycle" }
-
+# retrofit + moshi json converter and http request interceptor for logging
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "retrofit" }
+okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+# moshi for retrofit
+moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
+moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 
 
 [plugins]
